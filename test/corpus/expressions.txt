@@ -90,7 +90,7 @@ package main
 func main() {
   a[b](c)
   a[b, c](d)
-  a[b[c], d](e[f])
+  a[b[c], d](e)
 }
 
 --------------------------------------------------------------------------------
@@ -104,39 +104,36 @@ func main() {
     (block
       (statement_list
         (expression_statement
-          (type_conversion_expression
-            (generic_type
-              (type_identifier)
-              (type_arguments
-                (type_elem
-                  (type_identifier))))
-            (identifier)))
-        (expression_statement
-          (type_conversion_expression
-            (generic_type
-              (type_identifier)
-              (type_arguments
-                (type_elem
-                  (type_identifier))
-                (type_elem
-                  (type_identifier))))
-            (identifier)))
-        (expression_statement
-          (type_conversion_expression
-            (generic_type
-              (type_identifier)
-              (type_arguments
-                (type_elem
-                  (generic_type
-                    (type_identifier)
-                    (type_arguments
-                      (type_elem
-                        (type_identifier)))))
-                (type_elem
-                  (type_identifier))))
+          (call_expression
             (index_expression
               (identifier)
-              (identifier))))))))
+              (identifier))
+            (argument_list
+                (identifier))))
+        (expression_statement
+            (call_expression
+                (identifier)
+                (type_arguments
+                    (type_elem
+                        (type_identifier))
+                    (type_elem
+                        (type_identifier)))
+                (argument_list
+                    (identifier))))
+        (expression_statement
+          (call_expression
+            (identifier)
+            (type_arguments
+                (type_elem
+                    (generic_type
+                        (type_identifier)
+                        (type_arguments
+                            (type_elem
+                                (type_identifier)))))
+                (type_elem
+                    (type_identifier)))
+            (argument_list
+                (identifier))))))))
 
 ================================================================================
 Calls to 'make' and 'new'
@@ -276,35 +273,27 @@ func main() {
       (statement_list
         (assignment_statement
           (expression_list
-            (identifier))
+            (blank_identifier))
           (expression_list
             (index_expression
               (identifier)
               (int_literal))))
         (assignment_statement
           (expression_list
-            (identifier))
+            (blank_identifier))
           (expression_list
             (slice_expression
               (identifier))))
         (assignment_statement
           (expression_list
-            (identifier))
+            (blank_identifier))
           (expression_list
             (slice_expression
               (identifier)
               (int_literal))))
         (assignment_statement
           (expression_list
-            (identifier))
-          (expression_list
-            (slice_expression
-              (identifier)
-              (int_literal)
-              (int_literal))))
-        (assignment_statement
-          (expression_list
-            (identifier))
+            (blank_identifier))
           (expression_list
             (slice_expression
               (identifier)
@@ -312,7 +301,15 @@ func main() {
               (int_literal))))
         (assignment_statement
           (expression_list
-            (identifier))
+            (blank_identifier))
+          (expression_list
+            (slice_expression
+              (identifier)
+              (int_literal)
+              (int_literal))))
+        (assignment_statement
+          (expression_list
+            (blank_identifier))
           (expression_list
             (slice_expression
               (identifier)
@@ -342,7 +339,7 @@ func main() {
       (statement_list
         (assignment_statement
           (expression_list
-            (identifier))
+            (blank_identifier))
           (expression_list
             (type_assertion_expression
               (identifier)
@@ -366,6 +363,9 @@ func main() {
   (*Point)(p)
   e.f(g)
   (e.f)(g)
+  // Generic type conversions (e.g. MyGeneric[int](x)) are also indistinguishable
+  // from generic call expressions and parse as call_expression
+  MyGeneric[int](x)
 }
 
 --------------------------------------------------------------------------------
@@ -380,7 +380,7 @@ func main() {
       (statement_list
         (assignment_statement
           (expression_list
-            (identifier))
+            (blank_identifier))
           (expression_list
             (type_conversion_expression
               (slice_type
@@ -392,7 +392,7 @@ func main() {
                 (field_identifier)))))
         (assignment_statement
           (expression_list
-            (identifier))
+            (blank_identifier))
           (expression_list
             (type_conversion_expression
               (parenthesized_type
@@ -405,7 +405,7 @@ func main() {
                 (field_identifier)))))
         (assignment_statement
           (expression_list
-            (identifier))
+            (blank_identifier))
           (expression_list
             (type_conversion_expression
               (channel_type
@@ -441,11 +441,19 @@ func main() {
             (argument_list
               (identifier))))
         (expression_statement
+            (type_conversion_expression
+                (parenthesized_type
+                    (qualified_type
+                        (package_identifier)
+                        (type_identifier)))
+                (identifier)))
+        (comment)
+        (comment)
+        (expression_statement
           (call_expression
-            (parenthesized_expression
-              (selector_expression
-                (identifier)
-                (field_identifier)))
+            (index_expression
+              (identifier)
+              (identifier))
             (argument_list
               (identifier))))))))
 
@@ -472,14 +480,14 @@ func main() {
       (statement_list
         (assignment_statement
           (expression_list
-            (identifier))
+            (blank_identifier))
           (expression_list
             (unary_expression
               (unary_expression
                 (identifier)))))
         (assignment_statement
           (expression_list
-            (identifier))
+            (blank_identifier))
           (expression_list
             (unary_expression
               (call_expression
