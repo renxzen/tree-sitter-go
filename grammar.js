@@ -327,7 +327,7 @@ module.exports = grammar({
       field('type_arguments', $.type_arguments),
     )),
 
-    type_arguments: $ => prec.dynamic(2, seq(
+    type_arguments: $ => prec.dynamic(3, seq(
       '[',
       commaSep1($.type_elem),
       optional(','),
@@ -753,7 +753,7 @@ module.exports = grammar({
     ),
 
     selector_expression: $ => prec(PREC.primary, seq(
-      field('operand', $._expression),
+      field('operand', choice($._expression, prec.dynamic(2, $.parenthesized_type))),
       '.',
       field('field', $._field_identifier),
     )),

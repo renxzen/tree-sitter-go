@@ -2002,6 +2002,10 @@
           {
             "type": "_expression",
             "named": true
+          },
+          {
+            "type": "parenthesized_type",
+            "named": true
           }
         ]
       }

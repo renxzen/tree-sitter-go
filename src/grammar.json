@@ -1509,7 +1509,7 @@
     },
     "type_arguments": {
       "type": "PREC_DYNAMIC",
-      "value": 2,
+      "value": 3,
       "content": {
         "type": "SEQ",
         "members": [
@@ -3975,8 +3975,21 @@
             "type": "FIELD",
             "name": "operand",
             "content": {
-              "type": "SYMBOL",
-              "name": "_expression"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                },
+                {
+                  "type": "PREC_DYNAMIC",
+                  "value": 2,
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "parenthesized_type"
+                  }
+                }
+              ]
             }
           },
           {
