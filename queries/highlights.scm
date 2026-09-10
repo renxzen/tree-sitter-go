@@ -105,6 +105,10 @@
   (rune_literal)
 ] @string
 
+(struct_tag) @string
+
+(tag_name) @property
+
 (escape_sequence) @escape
 
 (format_specifier) @string.special
