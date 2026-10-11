@@ -4699,8 +4699,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '*') ADVANCE(19);
       if (lookahead == '.') ADVANCE(13);
       if (lookahead == '0') ADVANCE(12);
-      if (lookahead == ' ' ||
-          lookahead == '#' ||
+      if (lookahead == '#' ||
           lookahead == '+' ||
           lookahead == '-') ADVANCE(12);
       if (('1' <= lookahead && lookahead <= '9')) ADVANCE(18);
@@ -5498,16 +5497,13 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 169:
       ACCEPT_TOKEN(anon_sym_PERCENT2);
-      ADVANCE_MAP(
-        '*', 19,
-        '.', 13,
-        '0', 12,
-        '[', 51,
-        ' ', 12,
-        '#', 12,
-        '+', 12,
-        '-', 12,
-      );
+      if (lookahead == '*') ADVANCE(19);
+      if (lookahead == '.') ADVANCE(13);
+      if (lookahead == '0') ADVANCE(12);
+      if (lookahead == '[') ADVANCE(51);
+      if (lookahead == '#' ||
+          lookahead == '+' ||
+          lookahead == '-') ADVANCE(12);
       if (('1' <= lookahead && lookahead <= '9')) ADVANCE(18);
       if (set_contains(sym_format_specifier_character_set_7, 10, lookahead)) ADVANCE(177);
       END_STATE();
@@ -70811,8 +70807,8 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [948] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_func_literal, 4, 0, 47),
   [950] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_literal_value, 2, 0, 0),
   [952] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_literal_value, 2, 0, 0),
-  [954] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_selector_expression, 3, 2, 36),
-  [956] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_selector_expression, 3, 2, 36),
+  [954] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_selector_expression, 3, -1, 36),
+  [956] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_selector_expression, 3, -1, 36),
   [958] = {.entry = {.count = 1, .reusable = true}}, SHIFT(1515),
   [960] = {.entry = {.count = 1, .reusable = true}}, SHIFT(1168),
   [962] = {.entry = {.count = 1, .reusable = true}}, SHIFT(123),

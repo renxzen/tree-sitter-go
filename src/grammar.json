@@ -3983,7 +3983,7 @@
                 },
                 {
                   "type": "PREC_DYNAMIC",
-                  "value": 2,
+                  "value": -1,
                   "content": {
                     "type": "SYMBOL",
                     "name": "parenthesized_type"
@@ -5116,7 +5116,7 @@
           },
           {
             "type": "PATTERN",
-            "value": "[+\\-# 0]*"
+            "value": "[+\\-#0]*"
           },
           {
             "type": "CHOICE",
@@ -5179,7 +5179,7 @@
           },
           {
             "type": "PATTERN",
-            "value": "[vTtbcdxoOqxXUeEfFgGspw%]"
+            "value": "[vTtbcdoOqxXUeEfFgGspw%]"
           }
         ]
       }

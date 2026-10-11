@@ -753,7 +753,7 @@ module.exports = grammar({
     ),
 
     selector_expression: $ => prec(PREC.primary, seq(
-      field('operand', choice($._expression, prec.dynamic(2, $.parenthesized_type))),
+      field('operand', choice($._expression, prec.dynamic(-1, $.parenthesized_type))),
       '.',
       field('field', $._field_identifier),
     )),
@@ -931,10 +931,10 @@ module.exports = grammar({
     format_specifier: _ => token.immediate(seq(
       '%',
       optional(seq('[', /\d+/, ']')),
-      /[+\-# 0]*/,
+      /[+\-#0]*/,
       optional(choice('*', /\d+/)),
       optional(seq('.', optional(choice('*', /\d+/)))),
-      /[vTtbcdxoOqxXUeEfFgGspw%]/,
+      /[vTtbcdoOqxXUeEfFgGspw%]/,
     )),
 
     escape_sequence: _ => token.immediate(seq(
